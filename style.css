@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+body {
+    background-color: brown;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    color: white;
+}
