@@ -3,6 +3,8 @@
     margin: 0;
     padding: 0;
     line-height: 1.5;
+    color: white;
+    text-wrap-style: pretty;
 }
 
 input,
@@ -13,11 +15,56 @@ select {
 }
 
 body {
-    background-color: brown;
+    background-color: white;
+}
+
+.page-container {
+    display: grid;
+    grid-template-rows: 100px 1fr;
 }
 
 .header {
     display: flex;
     justify-content: center;
-    color: white;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 550;
+    background-color: lightseagreen;
+    border-bottom: 2px solid black;
+    /* color: white; */
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
+
+.book {
+    background-color: white;
+    width: 150px;
+    height: 200px;
+    padding: 20px 10px;
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: 2px solid black;
+    border-left: 12px solid black;
+    background-color: lightseagreen;
+    font-weight: 400;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    font-size: 14px;
+    text-align: end;
+
+    display: grid;
+    grid-template-rows: 70% 1fr 1fr 1fr;
+}
+
+.book-title {
+    font-size: 1.2rem;
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
+}
+
+#library {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    padding: 20px 16px;
+}
+
