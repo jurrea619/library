@@ -4,14 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Library</title>
+    <link href="https://googleapis.com" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
 </head>
 <body>
     <div class="page-container">
-        <div class="header">My Library</div>
-        <div id="library">
+        <div class="header">
+            <div class="page-title">
+                Joshua's Library
+            </div>
+            <div class="dropdown">
+                <button id="dropDownBtn">Add book</button>
+                <form class="dropdown-form" id="dropdown-form">
+                    <div class="input-field" id="title-field">
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" id="title" required>
+                    </div>
+                    <div class="input-field" id="author-field">
+                        <label for="author">Author:</label>
+                        <input type="text" name="author" id="author" required>
+                    </div>
+                    <div class="input-field" id="pages-field">
+                        <label for="pages">Pages:</label>
+                        <input type="number" name="pages" id="pages"
+                            min="1" step="1" placeholder="# of pages">
+                    </div>
+                    <div class="input-field" id="haveRead-field">
+                        <input type="checkbox" name="haveRead" id="haveRead" value="true">
+                        <label for="haveRead">I've read this book</label>
+                    </div>
+                    <div class="submitBtn-field">
+                        <button type="submit" form="dropdown-form"
+                                id="submitBtn">
+                                Add Book
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
+        <div id="library"></div>
     </div>
 </body>
 </html>

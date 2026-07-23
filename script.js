@@ -1,6 +1,8 @@
-// initialize vars for library storage and linking to page
+// initialize variables for book storage and document elements
 const books = [];
 const library = document.getElementById("library");
+const dropDownBtn = document.getElementById("dropDownBtn");
+const dropDownForm = document.getElementById("dropdown-form");
 
 // Book object constructor
 function Book(title, author, numPages, haveRead) {
@@ -17,12 +19,13 @@ function Book(title, author, numPages, haveRead) {
     this.info = `${this.title} by ${this.author}, ${this.numPages} pages, ${this.haveRead}`;
 }
 
+// create Book object from input form with given params
+// add to books array for storage
 function createBook(title, author, numPages, haveRead){
     // new book object with input params
     const newBook = new Book(title, author, numPages, haveRead);
     // add new book to my books array
     books.push(newBook);
-
     // helper function to update document
     addToLibrary(newBook);
 }
@@ -63,10 +66,40 @@ books.push(greatGatsby);
 books.push(ofMiceAndMen);
 
 // loop through stored books and add to document
-function updateWindow(){
+function updateDisplay(){
     for(const book of books){
         addToLibrary(book);
     }
 }
 
-updateWindow();
+// set click listener on dropdown button to display form
+dropDownBtn.addEventListener("click", function(e){
+    dropDownForm.classList.toggle("show");
+});
+
+// set submit listener on form to pull data
+dropDownForm.addEventListener("submit", function(e){
+    // prevent page reload with preventDefault
+    e.preventDefault();
+    // pass the form element into FormData constructor
+    const formData = new FormData(event.target);
+    // create object with form properties
+    const formProps = Object.fromEntries(formData);
+    // grab form values
+    const newTitle = (formProps.title).charAt(0).toUpperCase() + (formProps.title).slice(1).toLowerCase();
+    const newAuthor = formProps.author;
+    // if pages is empty, return "unknown"
+    const newPages = formProps.pages == "" ? "Unknown" : formProps.pages;
+    // if checkbox property not defined, set haveRead to false
+    const haveRead = Object.hasOwn(formProps, "haveRead");
+
+    // create book
+    createBook(newTitle, newAuthor, newPages, haveRead);
+    // reset form to default values
+    dropDownForm.reset();
+    // hide form after book submission
+    dropDownForm.classList.toggle("show");
+});
+
+
+updateDisplay();

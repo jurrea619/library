@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
     line-height: 1.5;
-    color: white;
     text-wrap-style: pretty;
 }
 
@@ -12,10 +11,19 @@ button,
 textarea,
 select {
     font: inherit;
+    padding-left: 5px;
+}
+
+input[type="checkbox"] {
+    background-color: red;
 }
 
 body {
-    background-color: white;
+    background-image: url(./images/wood1.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .page-container {
@@ -23,33 +31,119 @@ body {
     grid-template-rows: 100px 1fr;
 }
 
+/* TODO implement child name tag w/ font for desk */
 .header {
+    padding: 10px 24px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    font-size: 2rem;
-    font-weight: 550;
-    background-color: lightseagreen;
-    border-bottom: 2px solid black;
+    font-size: 3rem;
+    font-weight: 600;
+
+    /* background-color: lightseagreen; */
+    /* border-bottom: 1px solid white; */
     /* color: white; */
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.book {
+.page-title {
+    font-family: 'Schoolbell', cursive;
+    padding: 5px 10px;
+    border-color: black;
+    border-width: 5px;
+    border-style: double;
+    border-radius: 5px;
+}
+
+/* .header > div {
+    border: 2px solid red;
+} */
+
+.dropdown {
+    float: right;
+    position: relative;
+}
+
+.dropdown-form {
+    display: none;
+    position: absolute;
+    min-width: 50px;
+    overflow: auto;
+    z-index: 1;
     background-color: white;
+    font-size: 18px;
+    border-radius: 3px;
+    padding: 5px;
+    right: 0;
+}
+
+.input-field {
+    margin-top: 3px;
+}
+
+label {
+    text-align: right;
+}
+
+#haveRead-field label {
+    text-align: left;
+}
+
+.show {
+    display: block;
+}
+
+.submitBtn-field {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+#submitBtn {
+    padding: 3px 14px;
+}
+
+.input-field {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 3fr;
+    gap: 5px;
+}
+
+#dropDownBtn {
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 1px 10px;
+    height: 40px;
+    width: 150px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition-duration: .4s;
+}
+
+#dropDownBtn:hover {
+    background-color: white;
+    border: 2px solid black;
+}
+
+.book {
     width: 150px;
     height: 200px;
     padding: 20px 10px;
     border-radius: 8px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border: 2px solid black;
-    border-left: 12px solid black;
+    border: 1px solid white;
+    border-left: 15px solid black;
+    border-right: 0;
+    border-bottom: 5px solid white;
     background-color: lightseagreen;
     font-weight: 400;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     font-size: 14px;
     text-align: end;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
     display: grid;
     grid-template-rows: 70% 1fr 1fr 1fr;
@@ -57,7 +151,7 @@ body {
 
 .book-title {
     font-size: 1.2rem;
-    font-style: italic;
+    /* font-style: italic; */
     font-weight: 400;
     text-align: center;
 }
