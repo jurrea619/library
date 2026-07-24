@@ -1,5 +1,5 @@
 // initialize variables for book storage and document elements
-const books = [];
+let books = [];
 const library = document.getElementById("library");
 const dropDownBtn = document.getElementById("dropDownBtn");
 const dropDownForm = document.getElementById("dropdown-form");
@@ -44,13 +44,16 @@ function createDiv(book){
     const newDiv = document.createElement("div");
     // add book class for styling
     newDiv.classList.add("book");
-
+    // add book id to element dataset
+    newDiv.dataset.id = book.id;
     // set string to display if book has been read
     // book.haveRead is boolean value
     let haveIRead = book.haveRead ? "Finished" : "Not read yet";
 
     // set container innerHTML with divs and book info
-    newDiv.innerHTML = `<div class="book-title">${book.title}</div>
+    newDiv.innerHTML = `<div><button class="deleteBtn"
+                                     title="Delete this book">X</button></div>
+                        <div class="book-title">${book.title}</div>
                         <div>${book.author}</div>
                         <div>${book.numPages} pages</div>
                         <div>${haveIRead}</div>`;
@@ -65,19 +68,25 @@ books.push(whereRedFernGrows);
 books.push(greatGatsby);
 books.push(ofMiceAndMen);
 
-// loop through stored books and add to document
+// loop through stored books and display on document
 function updateDisplay(){
+    // clear books from display
+    library.innerHTML = "";
+    // add updated list to library
     for(const book of books){
         addToLibrary(book);
     }
+    attachDeleteBtnListeners();
 }
+
+updateDisplay();
 
 // set click listener on dropdown button to display form
 dropDownBtn.addEventListener("click", function(e){
     dropDownForm.classList.toggle("show");
 });
 
-// set submit listener on form to pull data
+// handle book submit form, pull values and create book
 dropDownForm.addEventListener("submit", function(e){
     // prevent page reload with preventDefault
     e.preventDefault();
@@ -101,5 +110,19 @@ dropDownForm.addEventListener("submit", function(e){
     dropDownForm.classList.toggle("show");
 });
 
-
-updateDisplay();
+// attach and handle delete buttons click event
+function attachDeleteBtnListeners(){
+    const deleteBtns = document.querySelectorAll(".deleteBtn");
+    deleteBtns.forEach(button => {
+        button.addEventListener("click", function(e){
+            // grab parent book element
+            const btnParent = event.currentTarget.closest('.book');
+            // grab book dataset id
+            const bookId = btnParent.dataset.id;
+            // remove book from books array storage
+            books = books.filter(book => book.id != bookId);
+            // remove element from page
+            updateDisplay();
+        });
+    });
+}
