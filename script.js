@@ -3,6 +3,8 @@ let books = [];
 const library = document.getElementById("library");
 const dropDownBtn = document.getElementById("dropDownBtn");
 const dropDownForm = document.getElementById("dropdown-form");
+const toggle = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z" /></svg>`;
 
 // Book object constructor
 function Book(title, author, numPages, haveRead) {
@@ -19,6 +21,10 @@ function Book(title, author, numPages, haveRead) {
     this.info = `${this.title} by ${this.author}, ${this.numPages} pages, ${this.haveRead}`;
 }
 
+Book.prototype.toggleRead = function(){
+    this.haveRead = !this.haveRead;
+};
+
 // create Book object from input form with given params
 // add to books array for storage
 function createBook(title, author, numPages, haveRead){
@@ -28,6 +34,14 @@ function createBook(title, author, numPages, haveRead){
     books.push(newBook);
     // helper function to update document
     addToLibrary(newBook);
+}
+
+function toggleBook(bookId){
+    for(let book of books){
+        if(book.id == bookId){
+            book.haveRead = !book.haveRead;
+        }
+    }
 }
 
 function addToLibrary(book){
@@ -56,7 +70,8 @@ function createDiv(book){
                         <div class="book-title">${book.title}</div>
                         <div>${book.author}</div>
                         <div>${book.numPages} pages</div>
-                        <div>${haveIRead}</div>`;
+                        <div class="haveRead-label">
+                        <button class="toggleBtn">${toggle}</button> ${haveIRead}</div>`;
     return newDiv;
 }
 
@@ -76,7 +91,7 @@ function updateDisplay(){
     for(const book of books){
         addToLibrary(book);
     }
-    attachDeleteBtnListeners();
+    attachBookListeners();
 }
 
 updateDisplay();
@@ -110,7 +125,7 @@ dropDownForm.addEventListener("submit", function(e){
     dropDownForm.classList.toggle("show");
 });
 
-// attach and handle delete buttons click event
+// handle delete book click events
 function attachDeleteBtnListeners(){
     const deleteBtns = document.querySelectorAll(".deleteBtn");
     deleteBtns.forEach(button => {
@@ -125,4 +140,24 @@ function attachDeleteBtnListeners(){
             updateDisplay();
         });
     });
+}
+
+// handle toggle click events
+function attachToggleListeners(){
+    const toggleBtns = document.querySelectorAll(".toggleBtn");
+    toggleBtns.forEach(button => {
+        button.addEventListener("click", function(e){
+            // grab toggle parent book element
+            const toggleParent = e.currentTarget.closest('.book');
+            const bookId = toggleParent.dataset.id;
+            toggleBook(bookId);
+            updateDisplay();
+        });
+    });
+}
+
+// attach listeners to book objects
+function attachBookListeners(){
+    attachDeleteBtnListeners();
+    attachToggleListeners();
 }
